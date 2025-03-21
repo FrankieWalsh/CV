@@ -1,74 +1,863 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
-  <title>My CV & Portfolio</title>
+  <title>Frank Walsh - Web Developer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Frank Walsh - Web Developer Portfolio and CV">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    :root {
+      --primary-color: #1f3a5f;
+      --secondary-color: #f8f9fa;
+      --accent-color: #375a7f;
+      --text-color: #333;
+      --light-text: #777;
+      --bg-color: #f5f5f5;
+      --header-bg: rgba(255, 255, 255, 0.95);
+      --header-text: #333;
+      --header-height: 70px;
+      --section-spacing: 5rem;
+    }
+    
+    [data-theme="dark"] {
+      --primary-color: #375a7f;
+      --secondary-color: #2b2b2b;
+      --accent-color: #4a7fb5;
+      --text-color: #e4e4e4;
+      --light-text: #aaaaaa;
+      --bg-color: #121212;
+      --header-bg: rgba(30, 30, 30, 0.95);
+      --header-text: #e4e4e4;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+    
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: var(--text-color);
+      background: var(--bg-color);
+      transition: background-color 0.3s, color 0.3s;
+      padding-top: var(--header-height);
     }
-    header, nav, main, footer {
-      padding: 20px;
-      max-width: 960px;
-      margin: 0 auto;
+    
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: var(--header-height);
+      background: var(--header-bg);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 2rem;
+      z-index: 1000;
+      transition: background 0.3s, box-shadow 0.3s, transform 0.3s;
+      backdrop-filter: blur(5px);
     }
-    header {
-      background: #f8f8f8;
-      border-bottom: 1px solid #ddd;
-    }
-    h1 {
-      margin: 0;
-    }
-    nav a {
-      margin-right: 10px;
+    
+    .logo {
+      font-weight: bold;
+      font-size: 1.5rem;
+      color: var(--primary-color);
       text-decoration: none;
-      color: #333;
+      display: flex;
+      align-items: center;
     }
-    main {
-      margin-top: 20px;
+    
+    .logo span {
+      margin-left: 10px;
     }
-    section {
-      margin-bottom: 40px;
+    
+    .nav-links {
+      display: flex;
+      list-style: none;
     }
-    footer {
+    
+    .nav-links li {
+      margin-left: 2rem;
+    }
+    
+    .nav-links a {
+      text-decoration: none;
+      color: var(--header-text);
+      font-weight: 500;
+      position: relative;
+      padding: 5px 0;
+      transition: color 0.3s;
+    }
+    
+    .nav-links a:hover {
+      color: var(--primary-color);
+    }
+    
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: var(--primary-color);
+      transition: width 0.3s;
+    }
+    
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    
+    .nav-links a.active {
+      color: var(--primary-color);
+    }
+    
+    .nav-links a.active::after {
+      width: 100%;
+    }
+    
+    .header.scrolled {
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      background: var(--header-bg);
+    }
+    
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: var(--header-text);
+      font-size: 1.5rem;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .section {
+      padding: var(--section-spacing) 0;
+      border-bottom: 1px solid var(--secondary-color);
+    }
+    
+    .section:last-child {
+      border-bottom: none;
+    }
+    
+    .section-title {
+      position: relative;
+      margin-bottom: 2.5rem;
+      padding-bottom: 0.8rem;
+      font-weight: 600;
+      font-size: 2rem;
+      color: var(--primary-color);
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 70px;
+      height: 3px;
+      background: var(--accent-color);
+      transition: width 0.3s;
+    }
+    
+    .section-title:hover::after {
+      width: 120px;
+    }
+    
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      padding: 4rem 0;
+    }
+    
+    .hero-text {
+      flex: 1;
+      min-width: 300px;
+    }
+    
+    .hero-image {
+      flex: 0 0 auto;
       text-align: center;
-      color: #777;
-      font-size: 0.9em;
-      border-top: 1px solid #ddd;
-      padding-top: 10px;
-      margin-top: 40px;
+    }
+    
+    .profile-img {
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid rgba(31, 58, 95, 0.1);
+      transition: transform 0.3s;
+    }
+    
+    .profile-img:hover {
+      transform: scale(1.05);
+    }
+    
+    .name {
+      font-size: 3.5rem;
+      font-weight: bold;
+      display: block;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+    
+    .title {
+      font-size: 1.5rem;
+      color: var(--light-text);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 1.5rem;
+    }
+    
+    .profile-text {
+      margin-bottom: 2rem;
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+    
+    .skills-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .skills-column {
+      flex: 1;
+      min-width: 250px;
+    }
+    
+    .skills-list, .languages-list {
+      list-style-type: none;
+    }
+    
+    .skills-list li, .languages-list li {
+      padding: 0.6rem 0;
+      transition: transform 0.2s;
+      position: relative;
+      padding-left: 1.5rem;
+    }
+    
+    .skills-list li::before, .languages-list li::before {
+      content: '▹';
+      color: var(--primary-color);
+      position: absolute;
+      left: 0;
+    }
+    
+    .two-column {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3rem;
+    }
+    
+    .column {
+      flex: 1;
+      min-width: 300px;
+    }
+    
+    .contact-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.2rem;
+      transition: transform 0.2s;
+    }
+    
+    .contact-item:hover {
+      transform: translateX(5px);
+    }
+    
+    .contact-item i {
+      width: 25px;
+      margin-right: 15px;
+      color: var(--primary-color);
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    
+    .social-links a {
+      color: var(--primary-color);
+      font-size: 1.8rem;
+      transition: color 0.3s, transform 0.3s;
+    }
+    
+    .social-links a:hover {
+      color: var(--accent-color);
+      transform: translateY(-5px);
+    }
+    
+    .education-item, .experience-item {
+      margin-bottom: 3rem;
+      transition: transform 0.3s;
+      padding: 1.5rem;
+      border-left: 3px solid var(--primary-color);
+      position: relative;
+      padding-left: 2rem;
+      background-color: rgba(31, 58, 95, 0.03);
+    }
+    
+    .education-item:hover, .experience-item:hover {
+      transform: translateX(5px);
+    }
+    
+    .education-item::before, .experience-item::before {
+      content: '';
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: var(--primary-color);
+      left: -9px;
+      top: 1.5rem;
+    }
+    
+    .education-period, .experience-period {
+      color: var(--light-text);
+      font-size: 0.95rem;
+      background: var(--secondary-color);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      display: inline-block;
+      margin-bottom: 0.5rem;
+    }
+    
+    .education-title, .experience-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+      color: var(--primary-color);
+    }
+    
+    .education-subtitle, .experience-subtitle {
+      color: var(--accent-color);
+      margin-bottom: 1rem;
+      font-size: 1.05rem;
+    }
+    
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    
+    .project-item {
+      padding: 1.5rem;
+      border-radius: 8px;
+      transition: transform 0.3s;
+      background-color: rgba(31, 58, 95, 0.03);
+      border: 1px solid var(--secondary-color);
+    }
+    
+    .project-item:hover {
+      transform: translateY(-5px);
+    }
+    
+    .project-title {
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+      color: var(--primary-color);
+      font-size: 1.3rem;
+    }
+    
+    .project-tech {
+      font-size: 0.95rem;
+      color: var(--accent-color);
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+    
+    .footer {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      background: var(--secondary-color);
+      margin-top: 3rem;
+      font-size: 1rem;
+      color: var(--light-text);
+      transition: background-color 0.3s;
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      top: 85px;
+      right: 20px;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 100;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: background-color 0.3s, transform 0.3s;
+    }
+    
+    .theme-toggle:hover {
+      transform: rotate(30deg);
+    }
+    
+    .scroll-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 100;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      opacity: 0;
+      visibility: hidden;
+      transition: background-color 0.3s, opacity 0.3s, visibility 0.3s;
+    }
+    
+    .scroll-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .scroll-top:hover {
+      background: var(--accent-color);
+    }
+    
+    @media (max-width: 992px) {
+      .hero {
+        flex-direction: column-reverse;
+        text-align: center;
+      }
+      
+      .section-title::after {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      
+      .section-title, .skills-list li::before, .languages-list li::before {
+        text-align: center;
+      }
+      
+      .skills-list li, .languages-list li {
+        text-align: center;
+        padding-left: 0;
+      }
+      
+      .skills-list li::before, .languages-list li::before {
+        position: static;
+        margin-right: 8px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .header {
+        padding: 0 1rem;
+      }
+      
+      .nav-links {
+        position: fixed;
+        top: var(--header-height);
+        right: -100%;
+        flex-direction: column;
+        background: var(--header-bg);
+        width: 250px;
+        height: calc(100vh - var(--header-height));
+        padding: 2rem;
+        transition: right 0.3s;
+        box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+      }
+      
+      .nav-links.active {
+        right: 0;
+      }
+      
+      .nav-links li {
+        margin: 1.5rem 0;
+      }
+      
+      .hamburger {
+        display: block;
+      }
+      
+      .profile-img {
+        width: 200px;
+        height: 200px;
+      }
+      
+      .name {
+        font-size: 2.5rem;
+      }
+      
+      .container {
+        padding: 0 1rem;
+      }
+      
+      .theme-toggle, .scroll-top {
+        width: 35px;
+        height: 35px;
+      }
+      
+      .theme-toggle {
+        top: auto;
+        bottom: 65px;
+      }
+      
+      .section {
+        padding: 3rem 0;
+      }
+      
+      .section-title {
+        font-size: 1.8rem;
+      }
+    }
+    
+    /* Additional animation for social icons */
+    @keyframes popIn {
+      0% { transform: scale(0); opacity: 0; }
+      70% { transform: scale(1.1); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    
+    .pop-in {
+      animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      opacity: 0;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Your Name</h1>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#cv">CV</a>
-      <a href="#contact">Contact</a>
-    </nav>
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">Frankie Walsh</div>
+        <nav>
+          <div class="nav-links">
+            <a href="#about" class="active">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#education">Education</a>
+            <a href="#experience">Experience</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+          </div>
+        </nav>
+        <div class="buttons">
+          <button class="theme-toggle">
+            <i class="fas fa-moon"></i>
+          </button>
+          <button class="hamburger">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+    </div>
   </header>
 
-  <main>
-    <section id="about">
-      <h2>About Me</h2>
-      <p>
-        A brief introduction: who you are, what you do, and your key skills or interests.
+  <button class="theme-toggle" aria-label="Toggle dark mode">
+    <i class="fas fa-moon"></i>
+  </button>
+  
+  <button class="scroll-top" aria-label="Scroll to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <main class="container">
+    <!-- Hero Section -->
+    <section id="about" class="hero" style="text-align: center; display: block;">
+      <div class="container" style="text-align: center;">
+        <img src="images/frankie.jpg" alt="Frankie Walsh" class="profile-img" style="margin: 0 auto; display: block;">
+        <h1 style="text-align: center;">
+          <span class="name" style="text-align: center;">FRANKIE WALSH</span>
+          <span class="title" style="text-align: center;">SOFTWARE ENGINEER</span>
+        </h1>
+        <p class="profile-text" style="text-align: center; max-width: 800px; margin-left: auto; margin-right: auto;">
+          Dynamic and ambitious Software Engineer with a strong foundation in software development
+          and a drive to expand knowledge and skills. Currently pursuing a degree in Software Engineering 
+          in the Netherlands with a keen interest in web development.
+        </p>
+        <div class="social-links" style="justify-content: center; display: flex; margin: 0 auto;">
+          <a href="https://github.com/FrankieWalsh" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/frankie-walsh-825290298/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+    </section>
+      
+    <!-- About Section -->
+    <section id="about" class="section">
+      <h2 class="section-title"">ABOUT ME</h2>
+      <p class="profile-text" style="text-align: center;">
+        Dynamic and ambitious Software Engineer with a strong foundation in Software
+        Engineering and a drive to expand knowledge and skills. I am currently pursuing a
+        degree in Software Engineering in the Netherlands (although I am Irish) and have a
+        keen interest in Java, JavaScript, HTML, CSS, Python, and various other
+        programming languages. My goal is to use my academic background and skills to
+        contribute to innovative projects, particularly in the world of websites, which is
+        where I have a real passion.
+      </p>
+      <p class="profile-text" style="text-align: center; margin-top: 1rem;">
+        Having experienced working on company websites during my time in college and working 
+        at Plant Wisdom AI, I have had some real fun and I am eager to continue developing as 
+        a software engineer and learn more to improve my abilities in the field of Software. 
+        I enjoy tackling complex problems and finding elegant solutions through code. My experience 
+        with AI development at Plant Wisdom AI has further expanded my technical capabilities 
+        and given me insight into how cutting-edge technologies can be applied to real-world problems.
+      </p>
+      <p class="profile-text" style="text-align: center; margin-top: 1rem;">
+        Outside of programming, I'm passionate about staying current with technology trends, as I
+        believe that staying up to date with the latest technologies is key to being a good software engineer.
+        I believe in continuous learning and regularly take online courses to enhance my skill set.
+        My international experience studying in both the Netherlands and Denmark has given me a 
+        global perspective and the ability to work effectively in diverse teams.
       </p>
     </section>
-
-    <section id="cv">
-
+    
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+      <h2 class="section-title">SKILLS & LANGUAGES</h2>
+      <div class="skills-container">
+        <div class="skills-column">
+          <h3>Programming Languages</h3>
+          <ul class="skills-list">
+            <li>Java</li>
+            <li>JavaScript</li>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>Python</li>
+            <li>SQL</li>
+            <li>C++</li>
+          </ul>
+        </div>
+        
+        <div class="skills-column">
+          <h3>Management & Methodologies</h3>
+          <ul class="skills-list">
+            <li>Project Management</li>
+            <li>Agile Development</li>
+            <li>Scrum Framework</li>
+            <li>Requirements Analysis</li>
+            <li>Team Leadership</li>
+            <li>Sprint Planning</li>
+            <li>Software Development Lifecycle</li>
+          </ul>
+        </div>
+        
+        <div class="skills-column">
+          <h3>Tools & Technologies</h3>
+          <ul class="skills-list">
+            <li>Git & GitHub</li>
+            <li>AWS</li>
+            <li>Docker</li>
+            <li>Angular</li>
+            <li>Tailwind CSS</li>
+            <li>RESTful APIs</li>
+            <li>Database Management</li>
+          </ul>
+        </div>
+        
+        <div class="skills-column">
+          <h3>Languages</h3>
+          <ul class="languages-list">
+            <li>English (Native)</li>
+            <li>Dutch (Basic)</li>
+          </ul>
+        </div>
+      </div>
     </section>
-
-    <section id="contact">
+      
+    <!-- Education Section -->
+    <section id="education" class="section">
+      <h2 class="section-title">EDUCATION</h2>
+      
+      <div class="education-item">
+        <span class="education-period">2022-2026</span>
+        <h3 class="education-title">Saxion University Of Applied Science</h3>
+        <h4 class="education-subtitle">Software Engineer</h4>
+        <p>
+          Currently pursuing a degree in Software Engineering at Saxion University
+          while gaining expertise in programming languages like Java, JavaScript,
+          and Python, along with Git, SQL and much more. During this program, I've
+          developed a strong foundation in software architecture, design patterns,
+          and agile development methodologies.
+        </p>
+        <p style="margin-top: 1rem;">
+          Notable coursework includes Data Structures & Algorithms, Database Management,
+          Web Development, and Software Project Management.
+          I've participated in multiple team-based projects, including developing websites
+          and applications for local businesses, which has enhanced my collaboration and 
+          communication skills while applying theoretical knowledge to practical scenarios.
+        </p>
+      </div>
+      
+      <div class="education-item">
+        <span class="education-period">2024-2025</span>
+        <h3 class="education-title">University Of Southern Denmark</h3>
+        <h4 class="education-subtitle">Software Engineer (Minor)</h4>
+        <p>
+          Continuing my studies in Denmark using the Erasmus program,
+          broadening my international experience and perspective while deepening my
+          understanding of software engineering principles. This exchange program
+          offers exposure to Scandinavian approaches to technology and innovation.
+        </p>
+        <p style="margin-top: 1rem;">
+          At SDU, I did specialized courses in Mobile Application Development, International Proprty Rights
+          and Cybersecurity that complement my core curriculum at Saxion. This international
+          academic experience enhanced my adaptability and provides valuable networking
+          opportunities within the European tech community.
+        </p>
+      </div>
+      
+      <div class="education-item">
+        <span class="education-period">2021-2022</span>
+        <h3 class="education-title">Radboud University</h3>
+        <h4 class="education-subtitle">Computer Science</h4>
+        <p>
+          This experience provided me with a solid foundation in computer science
+          principles, which is valuable for my current software engineering studies.
+          At Radboud, I was introduced to fundamental concepts in computing, including
+          programming basics, computer architecture, and computational thinking.
+        </p>
+        <p style="margin-top: 1rem;">
+          The curriculum emphasized theoretical aspects of computer science alongside
+          practical programming exercises. I completed coursework in mathematics,
+          algorithms, and introductory programming in C++ and Java. Though I later
+          transferred to pursue a more specialized software engineering degree, the
+          rigorous academic environment at Radboud shaped my analytical approach to
+          problem-solving and established a strong theoretical foundation that continues
+          to inform my technical work today.
+        </p>
+      </div>
+    </section>
+    
+    <!-- Experience Section -->
+    <section id="experience" class="section">
+      <h2 class="section-title">WORK EXPERIENCE</h2>
+      
+      <div class="experience-item">
+        <span class="experience-period">February 2025 - Present</span>
+        <h3 class="experience-title">AI Developer & Web Developer</h3>
+        <h4 class="experience-subtitle">Plant Wisdom AI</h4>
+        <p>
+          Currently working at Plant Wisdom AI, an innovative AI startup focused on revolutionizing 
+          the pharmaceutical industry with AI-powered solutions for efficiency and operational excellence.
+          Developing AI models and contributing to website development as part of a collaborative team.
+        </p>
+        <ul style="margin-top: 10px; list-style-position: inside;">
+          <li>Developing and implementing AI models for pharma applications</li>
+          <li>Contributing to website development and maintenance</li>
+          <li>Helping pharmaceutical manufacturers enhance efficiency and reduce waste</li>
+        </ul>
+      </div>
+    </section>
+    
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+      <h2 class="section-title">PROJECTS</h2>
+      
+      <div class="project-grid">
+        <div class="project-item">
+          <h3 class="project-title">Plant Wisdom AI Website</h3>
+          <div class="project-tech">WIX</div>
+          <p>
+            Contributed to the development and maintenance of the Plant Wisdom AI company website.
+            The platform showcases AI-powered solutions for pharmaceutical manufacturing efficiency,
+            focusing on calibration, digital transformation, operational excellence, and sustainability.
+          </p>
+          <p style="margin-top: 10px;">
+            <a href="https://www.plantwisdom.ai/" target="_blank">Visit website</a>
+          </p>
+        </div>
+        
+        <div class="project-item">
+          <h3 class="project-title">Personal Portfolio Website</h3>
+          <div class="project-tech">HTML, CSS, JavaScript</div>
+          <p>
+            Designed and developed a responsive personal portfolio website to showcase my skills,
+            projects, and experience. The website features a clean, modern design with responsive
+            layout that works well on all device sizes.
+          </p>
+        </div>
+        
+        <div class="project-item">
+          <h3 class="project-title">Company Projects</h3>
+          <div class="project-tech">Java, SQL, Tailwind, Angular</div>
+          <p>
+            Developed an Energy Management website for Ducth software company Topicus using tailwind with Angular
+            in a team of 6. Also created an application for Ducth software company myShop using Java and SQL which
+            helped the company manage their inventory and orders, this was done in a group of 6.
+          </p>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+      <h2 class="section-title">CONTACT ME</h2>
+      
+      <div class="two-column">
+        <div class="column">
+          <div class="contact-item">
+            <i class="fas fa-phone"></i>
+            <span>+353 83 052 0023</span>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-envelope"></i>
+            <span>frankie.walsh4@outlook.com</span>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Deventer, Netherlands</span>
+          </div>
+          
+          <div class="social-links">
+            <a href="https://github.com/FrankieWalsh" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/frankie-walsh-825290298/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        
+        <div class="column">
+          <p>
+            Feel free to reach out to me for any opportunities, collaborations, or just to say hello!
+            I'm always interested in connecting with fellow developers and potential employers.
+          </p>
+          <p style="margin-top: 1rem;">
+            Currently open to internship opportunities and freelance projects in web development
+            and software engineering. Looking forward to hearing from you!
+          </p>
+        </div>
+      </div>
     </section>
   </main>
-
-  <footer>
+  
+  <footer class="footer">
+    <p>&copy; 2025 Frankie Walsh. All rights reserved.</p>
   </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
