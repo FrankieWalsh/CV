@@ -1,6 +1,6 @@
 # CV Website
 
-My CV/Resume website built with HTML, CSS, and JavaScript. To see it, just download and open the index.html file.
+My CV/Resume website built with HTML, CSS, and JavaScript. To see it, visit my github pages at https://frankiewalsh.github.io/CV/ or download this project and open the index.html file.
 
 
 ## Structure
